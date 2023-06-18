@@ -3,7 +3,7 @@ POST {{host}}
 Content-Type: application/json
 
 {
-  "link": "https://github.com/redis/go-redis"
+  "link": "https://github.com/bondarenkoi07/link"
 }
 
 > {%

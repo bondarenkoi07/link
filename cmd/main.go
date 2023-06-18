@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"time"
@@ -33,7 +32,7 @@ func main() {
 	r.GET(":short", er.Redirect)
 
 	server := &http.Server{
-		Addr:           fmt.Sprintf(":80"),
+		Addr:           cfg.Port,
 		Handler:        r,
 		ReadTimeout:    10 * time.Second,
 		WriteTimeout:   10 * time.Second,

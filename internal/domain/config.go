@@ -6,6 +6,7 @@ import (
 )
 
 type Config struct {
+	Port       string
 	RedisHost  string
 	RedisPass  string
 	BlockSize  int
@@ -18,6 +19,11 @@ func NewConfig() *Config {
 	cfg := &Config{
 		RedisHost: os.Getenv("REDIS_HOST"),
 		RedisPass: os.Getenv("REDIS_PASSWORD"),
+	}
+
+	cfg.Port = os.Getenv("PORT")
+	if cfg.Port == "" {
+		cfg.Port = ":80"
 	}
 
 	BlockSize, err := strconv.ParseInt(os.Getenv("BLOCK_SIZE"), 10, 32)
