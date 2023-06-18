@@ -1,0 +1,21 @@
+### TEST url shorter
+POST {{host}}
+Content-Type: application/json
+
+{
+  "link": "https://github.com/redis/go-redis"
+}
+
+> {%
+    client.assert(response.status === 201, "status not created")
+    if (response.body.hasOwnProperty("short")){
+        client.global.set("short", response.body.short)
+    }
+ %}
+
+### TEST redirect
+GET {{short}}
+
+> {%
+    client.assert(response.status === 200, "status not redirect")
+%}

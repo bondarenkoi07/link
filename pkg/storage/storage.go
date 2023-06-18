@@ -11,11 +11,15 @@ var (
 	ErrInconvertibleType = errors.New("could not convert to string")
 )
 
-type MemoryStorage struct {
+type MemoryCache struct {
 	storage *sync.Map
 }
 
-func (s MemoryStorage) Put(short string, link string) error {
+func NewMemoryCache() *MemoryCache {
+	return &MemoryCache{storage: new(sync.Map)}
+}
+
+func (s MemoryCache) Put(short string, link string) error {
 	storedLink, shortExists := s.storage.LoadOrStore(short, link)
 	if !shortExists {
 		return nil
@@ -28,7 +32,7 @@ func (s MemoryStorage) Put(short string, link string) error {
 	return ErrSameShort
 }
 
-func (s MemoryStorage) Load(shortURI string) (string, error) {
+func (s MemoryCache) Load(shortURI string) (string, error) {
 	var (
 		linkRaw any
 		ok      bool
